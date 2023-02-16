@@ -1,5 +1,5 @@
 import Application, { Context } from "koa";
-import { isHTTPError } from "http-response-helpers";
+import { HTTPError, isHTTPError } from "http-response-helpers";
 
 import { ErrorBody, RouteMetadata, RouterConfig } from "./types";
 import { handleRequest } from "./handleRequest";
@@ -14,9 +14,7 @@ export const router = (config: RouterConfig) => {
 
   const routes: RouteMetadata[] = [];
 
-  //   if(config.routers)
-
-  loadRoutes(config, routes);
+  loadRoutes(config).then((r) => routes.push(...r));
 
   return async (ctx: Context, next: Application.Next): Promise<void> => {
     try {
@@ -24,7 +22,7 @@ export const router = (config: RouterConfig) => {
       if (result !== null) {
         ctx.body = result.value;
       } else if (!config.passThrough) {
-        await next();
+        throw new HTTPError.NotFound("NOT_FOUND");
       } else {
         await next();
       }

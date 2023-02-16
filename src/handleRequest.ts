@@ -24,6 +24,8 @@ export const handleRequest = async (
       params[matchedRoute.keys[i].name] = match[i + 1];
     }
 
+    ctx.params = params;
+
     let result: RouteHandlerResult = null;
 
     for (const fn of matchedRoute.middleware) {
