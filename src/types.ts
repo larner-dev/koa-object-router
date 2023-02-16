@@ -7,17 +7,12 @@ import { Key } from "path-to-regexp";
 export interface RouterOptions {
   middleware?: MiddlewareHandler[];
   prefix?: string;
-  suffix?: string;
   priority?: number;
 }
 
 export interface RouterRoutes {
   [key: string]: RouteHandler | (RouteHandler | MiddlewareHandler)[];
 }
-
-// export type Router = {
-//
-// } & {};
 
 export type MiddlewareHandler = (context: Context) => Promise<void>;
 export type RouteHandlerResult = Jsonifiable | HTTPRedirect | ReadStream | void;

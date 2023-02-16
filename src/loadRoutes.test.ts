@@ -153,4 +153,18 @@ describe("handleRequest", () => {
       }),
     ]);
   });
+  test.only("works with cjs", async () => {
+    const routesDirectory = resolve(__dirname, "../fixtures/routes_cjs");
+    const promise = loadRoutes({
+      routesDirectory,
+    });
+    await expect(promise).resolves.toEqual([
+      expect.objectContaining({
+        keys: [],
+        method: "GET",
+        middleware: [],
+        pattern: "/",
+      }),
+    ]);
+  });
 });

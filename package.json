@@ -1,6 +1,6 @@
 {
   "name": "koa-object-router",
-  "description": "A larner.dev project",
+  "description": "A router for koa that can optionally be loaded from the filesystem.",
   "version": "1.0.0",
   "author": "Aaron Larner",
   "type": "module",
