@@ -23,10 +23,15 @@ export type RouteHandler = <
   context: C
 ) => Promise<R>;
 
+export interface Router {
+  options?: RouterOptions;
+  routes: RouterRoutes;
+}
+
 export interface RouterConfig {
   routesDirectory?: string;
   passThrough?: boolean;
-  routers?: Record<string, { options?: RouterOptions; routes: RouterRoutes }>;
+  routers?: Record<string, Router>;
   prefix?: string;
   excludeRegexString?: string;
   index?: string;
