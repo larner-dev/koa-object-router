@@ -1,5 +1,5 @@
 import { Plugin } from "esbuild";
-import { readdir, writeFile } from "fs/promises";
+import { readdir, writeFile, mkdir } from "fs/promises";
 import { dirname, extname, isAbsolute, join, relative, resolve } from "path";
 import { fileURLToPath } from "url";
 
@@ -75,6 +75,8 @@ export const esbuildPluginMakeRouterObject = ({
         "\n\nexport default {\n  " +
         objectLines.join("  \n") +
         "\n};\n";
+
+      await mkdir(out, { recursive: true });
 
       await writeFile(outfile, out);
     });
