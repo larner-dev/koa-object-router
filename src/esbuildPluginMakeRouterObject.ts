@@ -76,7 +76,7 @@ export const esbuildPluginMakeRouterObject = ({
         objectLines.join("  \n") +
         "\n};\n";
 
-      await mkdir(out, { recursive: true });
+      await mkdir(outfile, { recursive: true });
 
       await writeFile(outfile, out);
     });
