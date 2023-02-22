@@ -16,12 +16,10 @@ export interface RouterRoutes {
 
 export type MiddlewareHandler = (context: Context) => Promise<void>;
 export type RouteHandlerResult = Jsonifiable | HTTPRedirect | ReadStream | void;
-export type RouteHandler = <
-  C extends Context,
+export type RouteHandler<
+  C extends Context = Context,
   R extends RouteHandlerResult = RouteHandlerResult
->(
-  context: C
-) => Promise<R>;
+> = (context: C) => Promise<R>;
 
 export interface Router {
   options?: RouterOptions;
