@@ -73,7 +73,7 @@ export const esbuildPluginMakeRouterObject = ({
       out +=
         importLines.join("\n") +
         "\n\nexport default {\n  " +
-        objectLines.join("  \n") +
+        objectLines.join(",\n  ") +
         "\n};\n";
 
       await mkdir(dirname(outfile), { recursive: true });
