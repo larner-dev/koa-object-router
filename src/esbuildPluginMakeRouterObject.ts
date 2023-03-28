@@ -6,11 +6,13 @@ import { fileURLToPath } from "url";
 interface Config {
   outfile: string;
   routesDirectory: string;
+  excludeRegex?: string;
 }
 
 export const esbuildPluginMakeRouterObject = ({
   outfile,
   routesDirectory,
+  excludeRegex,
 }: Config): Plugin => ({
   name: "make-router-object",
   setup(build) {
@@ -34,6 +36,9 @@ export const esbuildPluginMakeRouterObject = ({
         throw error;
       }
       routerPaths = routerPaths.filter((path) => path.match("^.+.m?[jt]s"));
+      if (excludeRegex) {
+        routerPaths = routerPaths.filter((path) => !path.match(excludeRegex));
+      }
       const imports = [];
       for (const routePath of routerPaths) {
         const name = routePath.substring(
