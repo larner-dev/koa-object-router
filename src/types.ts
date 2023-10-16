@@ -1,7 +1,7 @@
 import { ReadStream } from "fs";
 import { HTTPRedirect } from "http-response-helpers";
 import { Context } from "koa";
-import { Jsonifiable } from "type-fest";
+import { JsonObject, Jsonifiable } from "type-fest";
 import { Key } from "path-to-regexp";
 
 export interface RouterOptions {
@@ -14,10 +14,14 @@ export interface RouterRoutes {
   [key: string]: RouteHandler | (RouteHandler | MiddlewareHandler)[];
 }
 
+export interface ContextWithParams extends Context {
+  params: Record<string, string>;
+}
+
 export type MiddlewareHandler = (context: Context) => Promise<void>;
 export type RouteHandlerResult = Jsonifiable | HTTPRedirect | ReadStream | void;
 export type RouteHandler<
-  C extends Context = Context,
+  C extends ContextWithParams = ContextWithParams,
   R extends RouteHandlerResult = RouteHandlerResult
 > = (context: C) => Promise<R>;
 
