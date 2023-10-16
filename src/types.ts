@@ -14,9 +14,9 @@ export interface RouterRoutes {
   [key: string]: RouteHandler | (RouteHandler | MiddlewareHandler)[];
 }
 
-export interface ContextWithParams extends Context {
-  params: Record<string, string>;
-}
+export type ContextWithParams = Context & {
+  params?: Record<string, string>;
+};
 
 export type MiddlewareHandler = (context: Context) => Promise<void>;
 export type RouteHandlerResult = Jsonifiable | HTTPRedirect | ReadStream | void;
