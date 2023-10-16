@@ -19,6 +19,8 @@ export const esbuildPluginMakeRouterObject = ({
     const useTypescript = outfile.toLowerCase().endsWith(".ts");
     build.onStart(async () => {
       if (!isAbsolute(routesDirectory)) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore empty-import-meta
         routesDirectory = resolve(
           dirname(fileURLToPath(import.meta.url)),
           routesDirectory
