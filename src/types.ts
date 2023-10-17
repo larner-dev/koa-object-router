@@ -14,16 +14,13 @@ export interface RouterRoutes {
   [key: string]: RouteHandler | (RouteHandler | MiddlewareHandler)[];
 }
 
-export type ContextWithParams = Context & {
-  params?: Record<string, string>;
-};
-
 export type MiddlewareHandler = (context: Context) => Promise<void>;
 export type RouteHandlerResult = Jsonifiable | HTTPRedirect | ReadStream | void;
 export type RouteHandler<
-  C extends ContextWithParams = ContextWithParams,
-  R extends RouteHandlerResult = RouteHandlerResult
-> = (context: C) => Promise<R>;
+  C extends Context = Context,
+  R extends RouteHandlerResult = RouteHandlerResult,
+  P extends JsonObject = JsonObject
+> = (context: C & { params?: P }) => Promise<R>;
 
 export interface Router {
   options?: RouterOptions;

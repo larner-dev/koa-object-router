@@ -1,5 +1,8 @@
 import { Context } from "koa";
 import { RouteHandlerResult, RouteMetadata } from "./types";
+import { JsonObject } from "type-fest";
+
+type ContextWithParams = Context & { params?: JsonObject };
 
 export const handleRequest = async (
   ctx: Context,
@@ -32,7 +35,7 @@ export const handleRequest = async (
       result = await fn(ctx);
     }
     for (const fn of matchedRoute.fns) {
-      result = await fn(ctx);
+      result = await fn(ctx as ContextWithParams);
     }
     return { value: result };
   }
