@@ -1,5 +1,5 @@
 import Application, { Context } from "koa";
-import { HTTPError, isHTTPError } from "http-response-helpers";
+import { HTTPError, HTTPRedirect, isHTTPError } from "http-response-helpers";
 
 import { ErrorBody, RouteMetadata, RouterConfig } from "./types";
 import { handleRequest } from "./handleRequest";
@@ -20,7 +20,12 @@ export const router = (config: RouterConfig) => {
     try {
       const result = await handleRequest(ctx, routes);
       if (result !== null) {
-        ctx.body = result.value;
+        if (result instanceof HTTPRedirect) {
+          ctx.status = result.status;
+          ctx.redirect(result.location);
+        } else {
+          ctx.body = result.value;
+        }
       } else if (!config.passThrough) {
         throw new HTTPError.NotFound("NOT_FOUND");
       } else {
