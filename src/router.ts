@@ -20,9 +20,9 @@ export const router = (config: RouterConfig) => {
     try {
       const result = await handleRequest(ctx, routes);
       if (result !== null) {
-        if (result instanceof HTTPRedirect) {
-          ctx.status = result.status;
-          ctx.redirect(result.location);
+        if (result.value instanceof HTTPRedirect) {
+          ctx.status = result.value.status;
+          ctx.redirect(result.value.location);
         } else {
           ctx.body = result.value;
         }
