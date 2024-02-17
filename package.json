@@ -46,10 +46,10 @@
     "vitest": "1.2.2"
   },
   "peerDependencies": {
+    "http-response-helpers": "1.5.0",
     "koa": "^2.15.0"
   },
   "dependencies": {
-    "http-response-helpers": "1.5.0",
     "path-to-regexp": "6.2.1",
     "type-fest": "4.10.2"
   },
