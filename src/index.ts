@@ -4,3 +4,4 @@ export { esbuildPluginMakeRouterObject } from "./esbuildPluginMakeRouterObject";
 export type { Router, RouteHandler, RouteHandlerResult } from "./types";
 export { loadRoutes } from "./loadRoutes";
 export { createMockContext } from "./createMockContext";
+export type { MockContextOptions } from "./createMockContext";

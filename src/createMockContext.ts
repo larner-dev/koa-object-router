@@ -19,7 +19,7 @@ export interface MockContext extends Context {
   };
 }
 
-export interface Options<
+export interface MockContextOptions<
   CustomProperties extends object,
   RequestBody = undefined
 > {
@@ -44,7 +44,7 @@ export interface Options<
 export function createMockContext<
   CustomProperties extends object,
   RequestBody = undefined
->(options: Options<CustomProperties, RequestBody> = {}) {
+>(options: MockContextOptions<CustomProperties, RequestBody> = {}) {
   const app = new Koa();
 
   const {
