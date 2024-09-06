@@ -39,6 +39,7 @@ export interface MockContextOptions<
   // eslint-disable-next-line @typescript-eslint/ban-types
   redirect?: Function;
   customProperties?: CustomProperties;
+  customRequestProperties?: Record<string, unknown>;
 }
 
 export function createMockContext<
@@ -60,6 +61,7 @@ export function createMockContext<
     headers = {},
     state = {},
     customProperties = {},
+    customRequestProperties = {},
   } = options;
 
   const extensions = {
@@ -104,13 +106,16 @@ export function createMockContext<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   res.set = undefined as any;
 
-  const context = app.createContext(req, res) as MockContext & CustomProperties;
-  Object.assign(context, extensions);
+  const context = {
+    ...app.createContext(req, res),
+    ...extensions,
+  } as unknown as MockContext & CustomProperties;
   //   context.cookies = createMockCookies(cookies);
 
   // ctx.request.body is a common enough custom property for middleware to add that it's handy to just support it by default
   context.request.body = requestBody;
   context.request.rawBody = rawBody;
+  context.request = { ...context.request, ...customRequestProperties };
 
   return context as Context;
 }
